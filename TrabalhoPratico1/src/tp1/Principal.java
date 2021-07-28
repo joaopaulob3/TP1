@@ -39,7 +39,7 @@ public class Principal {
 				break;
 			case 5: //Cadastro de venda
 				System.out.println();
-				cadastroDeVenda();
+				cadastroDeVenda(objProduto);
 				break;
 			case 6: //Mostrar produtos em estoque
 				System.out.println();
@@ -118,7 +118,7 @@ public class Principal {
 			//Adicionando o objeto criado na classe ConjuntoClientes
 			ConjuntoClientes.adicionar(objCliente);
 		}
-		System.out.println("DADOS CADASTRADOS [" + quantidade + " clientes]");
+		System.out.println("DADOS CADASTRADOS [" + ConjuntoClientes.quantidadeDeClientes() + " clientes no sistema]");
 		System.out.println("---------------------------------------------------------------------------------------------------\n");
 	}
 	
@@ -221,7 +221,7 @@ public class Principal {
 			//Adicionando o objeto criado na classe ConjuntoProdutos
 			ConjuntoProdutos.adicionar(objProduto);
 		}
-		System.out.println("DADOS CADASTRADOS [" + quantidade + " produtos]");
+		System.out.println("DADOS CADASTRADOS [" + ConjuntoProdutos.quantidadeDeProdutos() + " produtos no sistema]");
 		System.out.println("---------------------------------------------------------------------------------------------------\n");
 	}
 	
@@ -285,39 +285,89 @@ public class Principal {
 		System.out.println();
 	}
 	
-	public static void cadastroDeVenda() {
+	public static void cadastroDeVenda(Produto objProduto) {
 		//Declarações
-		String nomeCliente, nomeProduto;
+		String nomeCliente = "";
+		String nomeProduto = "";
+		int quantidade = 0;
+		boolean temClientes = false;
+		boolean temProdutos = false;
 		Scanner leitorString = new Scanner(System.in);
-		boolean verificaClientes, verificaProdutos;
+		Scanner leitor = new Scanner(System.in);
 		
-		//Lista os nomes (se houver)
-		System.out.println("===================================================================================================");
-		verificaClientes = ConjuntoClientes.imprimeNomes();
+		//Verifica se há cliente E produto cadastrado no sistema
+		temClientes = ConjuntoClientes.temCliente();
+		temProdutos = ConjuntoProdutos.temProduto();
 		
-		//Pede para o usuário digitar o nome a ser trabalhado apenas se houver cliente cadastrado
-		if (verificaClientes) {
+		//Esse método (cadastroDeVenda()) só será executado se houver cliente E produto cadastrado no sistema
+		if (temClientes && temProdutos) {
+			//Lista os nomes dos clientes
 			System.out.println("===================================================================================================");
-			System.out.print("Digite o nome de um cliente: ");
+			ConjuntoClientes.imprimeNomes();
+			
+			//Pede para o usuário digitar o nome a ser trabalhado
+			System.out.println("===================================================================================================");
+			System.out.print(">Digite o nome de um cliente: ");
 			nomeCliente = leitorString.nextLine();
-		}
-		
-		//Lista os produtos (se houver)
-		System.out.println("===================================================================================================");
-		verificaProdutos = ConjuntoProdutos.imprimeNomes();
-		
-		//Pede para o usuário digitar o nome a ser trabalhado apenas se houver produto cadastrado
-		if (verificaProdutos) {
+			
+			//Lista os nomes dos produtos
 			System.out.println("===================================================================================================");
-			System.out.print("Digite o nome de um produto: ");
+			ConjuntoProdutos.imprimeNomes();
+			
+			//Pede para o usuário digitar o nome a ser trabalhado
+			System.out.println("===================================================================================================");
+			System.out.print(">Digite o nome de um produto: ");
 			nomeProduto = leitorString.nextLine();
+			
+			//O nome do produto será pesquisado e comparado com algum produto que já exista no sistema
+			//O objeto contendo os atributos é resgatado aqui
+			objProduto = ConjuntoProdutos.pesquisarProduto(nomeProduto);
+			System.out.println("Quantidade em estoque desse produto: " + objProduto.getQuantidadeEstoque());
+			if (objProduto.getNome().equalsIgnoreCase(nomeProduto)) {
+				do {
+					System.out.println("===================================================================================================");
+					//Pede para o usuário digitar a quantidade do produto se ele for encontrado
+					System.out.print(">Quanto do produto " + nomeProduto + " será levado? ");
+					quantidade = leitor.nextInt();
+					
+					//Se a quantidade digitada for negativa, o programa continuará perguntando a quantidade
+					if (quantidade <= 0) {
+						System.out.println("Digite um valor maior que 0!");
+					} else {
+						//Se a quantidade digitada for maior que a quantidade de produto no estoque será exibida uma mensagem
+						//avisando que o valor digitado é maior que a quantidade em estoque do produto e o programa continuará
+						//perguntando a quantidade. Caso contrário, o programa irá retirar a quantidade digitada do produto do estoque
+						if (quantidade > objProduto.getQuantidadeEstoque()) {
+							System.out.println("A quantidade digitada é maior que a quantidade no estoque.");
+						} else {
+							objProduto.setQuantidadeEstoque(objProduto.getQuantidadeEstoque() - quantidade);
+							System.out.println("Quantidade em estoque desse produto: " + objProduto.getQuantidadeEstoque());
+							System.out.println("===================================================================================================");
+						}
+					}
+					
+					//O loop permanecerá até o usuário digitar uma quantidade maior que zero e um valor que não ultrapasse a quantidade 
+					//em estoque do produto
+				} while (quantidade <= 0 || quantidade > objProduto.getQuantidadeEstoque());
+			} else {
+				System.out.println("===================================================================================================");
+				System.out.println("O produto digitado não existe no sistema.");
+				System.out.println("===================================================================================================");
+			}
+			
+			
+		} else {
+			System.out.println("===================================================================================================");
+			System.out.println("Você precisa ter cliente E produto cadastrado no sistema!");
+			System.out.println("===================================================================================================");
 		}
+		
 		System.out.println();
 	}
 	
 	public static void mostrarProdutosEmEstoque() {
 		System.out.println("===================================================================================================");
-		ConjuntoProdutos.impressao();
+		ConjuntoProdutos.impressaoNomesEstoque();
 		System.out.println();
 	}
 }

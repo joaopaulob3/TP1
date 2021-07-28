@@ -56,7 +56,7 @@ public class Produto {
 	}
 	
 	//Retorna uma String com o nome, descricao e quantidade em estoque do produto
-	public String listaEstoque() {
+	public String listaNomeEstoque() {
 		return "#Nome do produto: " + this.getNome() + "\n#Quantidade em estoque: " + this.getQuantidadeEstoque() + "\n";
 	}
 	
