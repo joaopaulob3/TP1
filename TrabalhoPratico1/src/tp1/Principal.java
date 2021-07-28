@@ -10,7 +10,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 		//Variáveis
-		int opcao;
+		int opcao = 0;
 		
 		//Referência para a classe Cliente
 		Cliente objCliente = null;
@@ -39,7 +39,7 @@ public class Principal {
 				break;
 			case 5: //Cadastro de venda
 				System.out.println();
-				cadastroDeVenda(objProduto);
+				cadastroDeVenda(objProduto, objCliente);
 				break;
 			case 6: //Mostrar produtos em estoque
 				System.out.println();
@@ -49,7 +49,7 @@ public class Principal {
 				System.out.println("\nVocê optou por encerrar o programa...");
 				break;
 			default: //Opção inválida
-				System.out.println("===================================================================================================");
+				System.out.println("\n===================================================================================================");
 				System.out.println("Digite uma opção válida!");
 				System.out.println("===================================================================================================\n");
 				break;
@@ -60,8 +60,7 @@ public class Principal {
 	//Métodos
 	public static int mostrarMenu() {
 		//Declarações
-		int opcao;
-		Scanner leitor = new Scanner(System.in);
+		int opcao = 0;
 		
 		//Menu
 		System.out.println("|==============TP1===============|");
@@ -74,7 +73,7 @@ public class Principal {
 		System.out.println("|[7] Sair                        |");
 		System.out.println("|================================|");
 		System.out.print(">>>Sua opção: ");
-		opcao = leitor.nextInt();
+		opcao = LerDados.lerInt(opcao);
 		
 		return opcao;
 	}
@@ -83,14 +82,12 @@ public class Principal {
 		//Declarações
 		int quantidade = 0;
 		String nome, endereco, telefone;
-		Scanner leitor = new Scanner(System.in);
-		Scanner leitorString = new Scanner(System.in);
 	
 		//Definição da quantidade de clientes a serem cadastrados
 		do {
 			System.out.println("=========================================================================================================");
 			System.out.print(">>>Quantos clientes serão cadastrados? ");
-			quantidade = leitor.nextInt();
+			quantidade = LerDados.lerInt(quantidade);
 			if (quantidade <= 0) {
 				System.out.println("Digite um número maior que 0!");
 			}
@@ -102,14 +99,13 @@ public class Principal {
 			System.out.println("CLIENTE " + (i+1));
 			
 			System.out.print(">Nome do cliente: ");
-			nome = leitorString.nextLine();
+			nome = LerDados.lerString();
 			
 			System.out.print(">Endereço do cliente: ");
-			endereco = leitorString.nextLine();
+			endereco = LerDados.lerString();
 			
 			System.out.print(">Telefone do cliente (sem espaços): ");
-			telefone = leitorString.next();
-			leitorString.nextLine();
+			telefone = LerDados.lerString();
 			System.out.println("---------------------------------------------------------------------------------------------------");
 			
 			//Criação de um novo objeto com construtor a cada iteração
@@ -125,14 +121,12 @@ public class Principal {
 	public static void buscaCliente(Cliente objCliente) {
 		//Declarações
 		String nome, novoNome, novoEndereco, novoTelefone;
-		char opcao;
-		Scanner leitor = new Scanner(System.in);
-		Scanner leitorString = new Scanner(System.in);
+		char opcao = 0;
 		
 		//Pesquisa pelo nome do cliente
 		System.out.println("=========================================================================================================");
 		System.out.print(">>>Qual o nome do cliente? ");
-		nome = leitorString.nextLine();
+		nome = LerDados.lerString();
 		System.out.println();
 		
 		//Busca o nome do cliente na classe ConjuntoClientes e resgata apenas o objeto com mesmo nome digitado pelo usuário
@@ -147,20 +141,19 @@ public class Principal {
 			System.out.println("=========================================================================================================");
 			
 			System.out.print(">>>Deseja alterar os dados desse cliente? [S/N]: ");
-			opcao = leitor.next().charAt(0);
+			opcao = LerDados.lerChar(opcao);
 			
 			//Altera os dados do cliente
 			if (opcao == 'S' || opcao == 's') {
 				//Definição dos novos atributos nome, endereço e telefone que serão armazenados no objeto da classe Cliente
 				System.out.print("\n>Nome do cliente: ");
-				novoNome = leitorString.nextLine();
+				novoNome = LerDados.lerString();
 				
 				System.out.print(">Endereço do cliente: ");
-				novoEndereco = leitorString.nextLine();
+				novoEndereco = LerDados.lerString();
 				
 				System.out.print(">Telefone do cliente (sem espaços): ");
-				novoTelefone = leitorString.next();
-				leitorString.nextLine();
+				novoTelefone = LerDados.lerString();
 				System.out.println("---------------------------------------------------------------------------------------------------");
 				
 				//Atualização dos dados do objeto
@@ -179,16 +172,14 @@ public class Principal {
 		//Declarações
 		int quantidade = 0;
 		String nome, descricao;
-		double valorCompra, porcentagemLucro;
-		int quantidadeEstoque;
-		Scanner leitor = new Scanner(System.in);
-		Scanner leitorString = new Scanner(System.in);
-		
+		double valorCompra = 0, porcentagemLucro = 0;
+		int quantidadeEstoque = 0;
+	
 		//Definição da quantidade de produtos a serem cadastrados
 		do {
 			System.out.println("=========================================================================================================");
 			System.out.print(">>>Quantos produtos serão cadastrados? ");
-			quantidade = leitor.nextInt();
+			quantidade = LerDados.lerInt(quantidade);
 			if (quantidade <= 0) {
 				System.out.println("Digite um número maior que 0!");
 			}
@@ -200,19 +191,19 @@ public class Principal {
 			System.out.println("PRODUTO " + (i+1));
 			
 			System.out.print(">Nome do produto: ");
-			nome = leitorString.nextLine();
+			nome = LerDados.lerString();
 			
 			System.out.print(">Descrição do produto: ");
-			descricao = leitorString.nextLine();
+			descricao = LerDados.lerString();
 			
 			System.out.print(">Valor de compra: R$");
-			valorCompra = leitor.nextDouble();
+			valorCompra = LerDados.lerDouble(valorCompra);
 			
 			System.out.print(">Porcentagem de lucro: ");
-			porcentagemLucro = leitor.nextDouble();
+			porcentagemLucro = LerDados.lerDouble(porcentagemLucro);
 			
 			System.out.print(">Quantidade em estoque: ");
-			quantidadeEstoque = leitor.nextInt();
+			quantidadeEstoque = LerDados.lerInt(quantidadeEstoque);
 			System.out.println("---------------------------------------------------------------------------------------------------");
 			
 			//Criação de um novo objeto com construtor a cada iteração
@@ -228,16 +219,14 @@ public class Principal {
 	public static void buscaProduto(Produto objProduto) {
 		//Declarações
 		String nome, novoNome, novaDescricao;
-		double novoValorCompra, novaPorcentagemLucro;
-		int novaQuantidadeEstoque;
-		char opcao;
-		Scanner leitor = new Scanner(System.in);
-		Scanner leitorString = new Scanner(System.in);
-		
+		double novoValorCompra = 0, novaPorcentagemLucro = 0;
+		int novaQuantidadeEstoque = 0;
+		char opcao = 0;
+
 		//Pesquisa pelo nome do produto
 		System.out.println("=========================================================================================================");
 		System.out.print(">>>Qual o nome do produto? ");
-		nome = leitorString.nextLine();
+		nome = LerDados.lerString();
 		System.out.println();
 		
 		//Busca o nome do produto na classe ConjuntoProdutos e resgata apenas o objeto com mesmo nome digitado pelo usuário
@@ -252,25 +241,25 @@ public class Principal {
 			System.out.println("=========================================================================================================");
 			
 			System.out.print(">>>Deseja alterar os dados desse produto? [S/N]: ");
-			opcao = leitor.next().charAt(0);
+			opcao = LerDados.lerChar(opcao);
 			
 			//Altera os dados do produto
 			if (opcao == 'S' || opcao == 's') {
 				//Definição dos novos atributos nome, endereço e telefone que serão armazenados no objeto da classe Cliente
 				System.out.print("\n>Nome do produto: ");
-				novoNome = leitorString.nextLine();
+				novoNome = LerDados.lerString();
 				
 				System.out.print(">Descrição do produto: ");
-				novaDescricao = leitorString.nextLine();
+				novaDescricao = LerDados.lerString();
 				
 				System.out.print(">Valor de compra: R$");
-				novoValorCompra = leitor.nextDouble();
+				novoValorCompra = LerDados.lerDouble(novoValorCompra);
 				
 				System.out.print(">Porcentagem de lucro: ");
-				novaPorcentagemLucro = leitor.nextDouble();
+				novaPorcentagemLucro = LerDados.lerDouble(novaPorcentagemLucro);
 				
 				System.out.print("Quantidade em estoque: ");
-				novaQuantidadeEstoque = leitor.nextInt();
+				novaQuantidadeEstoque = LerDados.lerInt(novaQuantidadeEstoque);
 				System.out.println("---------------------------------------------------------------------------------------------------");
 				
 				//Atualização dos dados do objeto
@@ -285,21 +274,20 @@ public class Principal {
 		System.out.println();
 	}
 	
-	public static void cadastroDeVenda(Produto objProduto) {
+	public static void cadastroDeVenda(Produto objProduto, Cliente objCliente) {
 		//Declarações
-		String nomeCliente = "";
-		String nomeProduto = "";
+		String nomeCliente;
+		String nomeProduto;
 		int quantidade = 0;
 		boolean temClientes = false;
 		boolean temProdutos = false;
-		Scanner leitorString = new Scanner(System.in);
-		Scanner leitor = new Scanner(System.in);
 		
 		//Verifica se há cliente E produto cadastrado no sistema
 		temClientes = ConjuntoClientes.temCliente();
 		temProdutos = ConjuntoProdutos.temProduto();
 		
 		//Esse método (cadastroDeVenda()) só será executado se houver cliente E produto cadastrado no sistema
+		//Caso contrário, mostra a mensagem das linhas 
 		if (temClientes && temProdutos) {
 			//Lista os nomes dos clientes
 			System.out.println("===================================================================================================");
@@ -307,61 +295,73 @@ public class Principal {
 			
 			//Pede para o usuário digitar o nome a ser trabalhado
 			System.out.println("===================================================================================================");
-			System.out.print(">Digite o nome de um cliente: ");
-			nomeCliente = leitorString.nextLine();
+			System.out.print(">Digite o nome do cliente: ");
+			nomeCliente = LerDados.lerString();
 			
-			//Lista os nomes dos produtos
-			System.out.println("===================================================================================================");
-			ConjuntoProdutos.imprimeNomes();
-			
-			//Pede para o usuário digitar o nome a ser trabalhado
-			System.out.println("===================================================================================================");
-			System.out.print(">Digite o nome de um produto: ");
-			nomeProduto = leitorString.nextLine();
-			
-			//O nome do produto será pesquisado e comparado com algum produto que já exista no sistema
+			//O nome do cliente será pesquisado e comparado com algum cliente que já exista no sistema
 			//O objeto contendo os atributos é resgatado aqui
-			objProduto = ConjuntoProdutos.pesquisarProduto(nomeProduto);
-			System.out.println("Quantidade em estoque desse produto: " + objProduto.getQuantidadeEstoque());
-			if (objProduto.getNome().equalsIgnoreCase(nomeProduto)) {
-				do {
-					System.out.println("===================================================================================================");
-					//Pede para o usuário digitar a quantidade do produto se ele for encontrado
-					System.out.print(">Quanto do produto " + nomeProduto + " será levado? ");
-					quantidade = leitor.nextInt();
-					
-					//Se a quantidade digitada for negativa, o programa continuará perguntando a quantidade
-					if (quantidade <= 0) {
-						System.out.println("Digite um valor maior que 0!");
-					} else {
-						//Se a quantidade digitada for maior que a quantidade de produto no estoque será exibida uma mensagem
-						//avisando que o valor digitado é maior que a quantidade em estoque do produto e o programa continuará
-						//perguntando a quantidade. Caso contrário, o programa irá retirar a quantidade digitada do produto do estoque
-						if (quantidade > objProduto.getQuantidadeEstoque()) {
-							System.out.println("A quantidade digitada é maior que a quantidade no estoque.");
+			objCliente = ConjuntoClientes.pesquisarCliente(nomeCliente);
+			
+			//Se o nome digitado bater com algum nome já no sistema, significa que o objCliente é diferente de null e podemos prosseguir
+			//Caso contrário o programa retorna a mensagem das linhas
+			if (objCliente != null) {
+				//Lista os nomes dos produtos
+				System.out.println("===================================================================================================");
+				ConjuntoProdutos.imprimeNomes();
+				
+				//Pede para o usuário digitar o nome a ser trabalhado
+				System.out.println("===================================================================================================");
+				System.out.print(">Digite o nome do produto: ");
+				nomeProduto = LerDados.lerString();
+				
+				//O nome do produto será pesquisado e comparado com algum produto que já exista no sistema
+				//O objeto contendo os atributos é resgatado aqui
+				objProduto = ConjuntoProdutos.pesquisarProduto(nomeProduto);
+				
+				//Se o nome digitado bater com algum nome já no sistema, significa que o objProduto é diferente de null e podemos prosseguir
+				//Caso contrário, o programa retorna a mesagem das linhas
+				if (objProduto != null) {
+					do {				
+						//Pede para o usuário digitar a quantidade do produto se ele for encontrado
+						System.out.print(">Quanto do produto " + nomeProduto + " será levado? ");
+						quantidade = LerDados.lerInt(quantidade);
+						
+						//Se a quantidade digitada for negativa, o programa continuará perguntando a quantidade
+						if (quantidade <= 0) {
+							System.out.println("Digite um valor maior que 0!");
 						} else {
-							objProduto.setQuantidadeEstoque(objProduto.getQuantidadeEstoque() - quantidade);
-							System.out.println("Quantidade em estoque desse produto: " + objProduto.getQuantidadeEstoque());
-							System.out.println("===================================================================================================");
+							//Se a quantidade digitada for maior que a quantidade de produto no estoque será exibida uma mensagem
+							//avisando que o valor digitado é maior que a quantidade em estoque do produto e o programa continuará
+							//perguntando a quantidade. Caso contrário, o programa irá retirar a quantidade digitada do produto do estoque
+							if (quantidade > objProduto.getQuantidadeEstoque()) {
+								System.out.println("A quantidade digitada é maior que a quantidade no estoque.");
+							} else {
+								objProduto.setQuantidadeEstoque(objProduto.getQuantidadeEstoque() - quantidade);
+								System.out.println("\nQuantidade em estoque desse produto: " + objProduto.getQuantidadeEstoque());
+								System.out.println("===================================================================================================");
+							}
 						}
-					}
-					
-					//O loop permanecerá até o usuário digitar uma quantidade maior que zero e um valor que não ultrapasse a quantidade 
-					//em estoque do produto
-				} while (quantidade <= 0 || quantidade > objProduto.getQuantidadeEstoque());
+							
+						//O loop permanecerá até o usuário digitar uma quantidade maior que zero e um valor que não ultrapasse a quantidade 
+						//em estoque do produto
+					} while (quantidade <= 0 || quantidade > objProduto.getQuantidadeEstoque());
+				} else {
+					System.out.println("===================================================================================================");
+					System.out.println("O nome digitado não foi encontrado.");
+					System.out.println("Tente novamente.");
+					System.out.println("===================================================================================================");
+				}
 			} else {
 				System.out.println("===================================================================================================");
-				System.out.println("O produto digitado não existe no sistema.");
+				System.out.println("O nome digitado não foi encontrado.");
+				System.out.println("Tente novamente.");
 				System.out.println("===================================================================================================");
 			}
-			
-			
 		} else {
 			System.out.println("===================================================================================================");
 			System.out.println("Você precisa ter cliente E produto cadastrado no sistema!");
 			System.out.println("===================================================================================================");
 		}
-		
 		System.out.println();
 	}
 	
