@@ -42,7 +42,7 @@ public class ConjuntoProdutos {
 		
 		//Verifica se o ArrayList está vazio ou não e imprime os dados na tela
 		if (listaProdutos.isEmpty()) {
-			System.out.println("Ainda não foi cadastrado nenhum produto...");
+			System.out.println("Ainda não foi cadastrado nenhum produto.");
 			System.out.println("===================================================================================================");
 		} else {
 			for (Produto produto : listaProdutos) {

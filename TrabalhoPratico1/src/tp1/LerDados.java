@@ -13,7 +13,7 @@ public class LerDados {
 			Scanner leitor = new Scanner(System.in);
 			argumento = leitor.nextInt();
 		} catch (java.util.InputMismatchException exception) {
-			System.out.print(">Digite um valor válido: ");
+			System.out.print(">>>Digite um valor válido: ");
 			argumento = lerInt(argumento);
 		}
 		return argumento;
@@ -24,7 +24,7 @@ public class LerDados {
 			Scanner leitor = new Scanner(System.in);
 			argumento = leitor.nextDouble();
 		} catch (java.util.InputMismatchException exception) {
-			System.out.print(">Digite um valor válido: ");
+			System.out.print(">>>Digite um valor válido: ");
 			argumento = lerDouble(argumento);
 		}
 		return argumento;
@@ -35,7 +35,7 @@ public class LerDados {
 			Scanner leitor = new Scanner(System.in);
 			argumento = leitor.next().charAt(0);
 		} catch (java.util.InputMismatchException exception) {
-			System.out.print(">Digite um valor válido: ");
+			System.out.print(">>>Digite um valor válido: ");
 			argumento = lerChar(argumento);
 		}
 		return argumento;
