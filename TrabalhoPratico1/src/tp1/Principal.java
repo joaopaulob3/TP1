@@ -11,6 +11,7 @@ public class Principal {
 	public static void main(String[] args) {
 		//Variáveis
 		int opcao = 0;
+		char escolha = 'n';
 		
 		//Referência para a classe Cliente
 		Cliente objCliente = null;
@@ -18,6 +19,51 @@ public class Principal {
 		//Referência para a classe Produto
 		Produto objProduto = null;
 		
+		//Instanciando e inicializando 10 clientes
+		Cliente c1 = new Cliente("Adriano Mendes", "Rua 1", "63123123123");
+		ConjuntoClientes.adicionar(c1);
+		Cliente c2 = new Cliente("Jefferson Laatus", "Rua 2", "23423412312");
+		ConjuntoClientes.adicionar(c2);
+		Cliente c3 = new Cliente("André Machado", "Rua 3", "37123123123");
+		ConjuntoClientes.adicionar(c3);
+		Cliente c4 = new Cliente("Stormer", "Rua 4", "23612312311");
+		ConjuntoClientes.adicionar(c4);
+		Cliente c5 = new Cliente("Luan Aral", "Rua 5", "5122312312311");
+		ConjuntoClientes.adicionar(c5);
+		Cliente c6 = new Cliente("Alexandre Freitas", "Rua 6", "2331231232");
+		ConjuntoClientes.adicionar(c6);
+		Cliente c7 = new Cliente("Carlos Massa", "Rua 7", "234242434234");
+		ConjuntoClientes.adicionar(c7);
+		Cliente c8 = new Cliente("Pamela Silva", "Rua 8", "99933123123");
+		ConjuntoClientes.adicionar(c8);
+		Cliente c9 = new Cliente("Cristina Souza", "Rua 9", "28937472411");
+		ConjuntoClientes.adicionar(c9);
+		Cliente c10 = new Cliente("Lucas Ferreira", "Rua 10", "1923912939000");
+		ConjuntoClientes.adicionar(c10);
+		
+		//Instanciando e inicializando 10 produtos
+		Produto p1 = new Produto("Carne", "carne", 10, 10, 10);
+		ConjuntoProdutos.adicionar(p1);
+		Produto p2 = new Produto("Abacate", "abacate", 15, 15, 15);
+		ConjuntoProdutos.adicionar(p2);
+		Produto p3 = new Produto("Ovos", "ovos", 12, 12, 12);
+		ConjuntoProdutos.adicionar(p3);
+		Produto p4 = new Produto("Arroz", "arroz", 10, 10, 10);
+		ConjuntoProdutos.adicionar(p4);
+		Produto p5 = new Produto("Feijão", "feijão", 8, 8, 8);
+		ConjuntoProdutos.adicionar(p5);
+		Produto p6 = new Produto("Batata", "batata", 20, 20, 20);
+		ConjuntoProdutos.adicionar(p6);
+		Produto p7 = new Produto("Papel higiênico", "papel higiênico", 30, 30, 30);
+		ConjuntoProdutos.adicionar(p7);
+		Produto p8 = new Produto("Amaciante", "amaciante", 5, 5, 5);
+		ConjuntoProdutos.adicionar(p8);
+		Produto p9 = new Produto("Sabão em pó", "sabão em pó", 18, 18, 18);
+		ConjuntoProdutos.adicionar(p9);
+		Produto p10 = new Produto("Iorgute", "iorgute", 12, 12, 12);
+		ConjuntoProdutos.adicionar(p10);
+		
+		//Executa o menu e os métodos da main enquanto o usuário não digita 7 e confirma a saída do programa
 		do {
 			opcao = mostrarMenu();
 			switch (opcao) {
@@ -46,7 +92,7 @@ public class Principal {
 				mostrarProdutosEmEstoque();
 				break;
 			case 7: //Sair
-				System.out.println("\nVocê optou por encerrar o programa...");
+				escolha = sair();
 				break;
 			default: //Opção inválida
 				System.out.println("\n===================================================================================================");
@@ -54,7 +100,7 @@ public class Principal {
 				System.out.println("===================================================================================================\n");
 				break;
 			}
-		} while(opcao != 7);
+		} while(opcao != 7 && escolha != 'n' || escolha != 'N');
 	}
 
 	//Métodos
@@ -89,6 +135,7 @@ public class Principal {
 			System.out.print(">>>Quantos clientes serão cadastrados? ");
 			quantidade = LerDados.lerInt(quantidade);
 			//Se o número digitado for 0, partimos do pressuposto que o usuário quer voltar ao menu
+			//Se for menor que 0, mostra a mensagem da linha 142
 			if (quantidade == 0) {
 				break;
 			} else if (quantidade < 0){
@@ -117,6 +164,7 @@ public class Principal {
 			//Adicionando o objeto criado na classe ConjuntoClientes
 			ConjuntoClientes.adicionar(objCliente);
 		}
+		//Mostra que os dados foram cadastrados e a quantidade de clientes no sistema
 		System.out.println("DADOS CADASTRADOS [" + ConjuntoClientes.quantidadeDeClientes() + " clientes no sistema]");
 		System.out.println("---------------------------------------------------------------------------------------------------\n");
 	}
@@ -127,11 +175,15 @@ public class Principal {
 		char opcao = 0;
 		boolean temClientes = false;
 		
-		//Verifica se há cliente cadastrado no sistema, se não houver, será exibida a mensagem das linhas 178-180
+		//Verifica se há cliente cadastrado no sistema, se não houver, será exibida a mensagem das linhas 230-232
 		temClientes = ConjuntoClientes.temCliente();
 		if (temClientes) {
-			//Pesquisa pelo nome do cliente
+			//Lista os nomes dos clientes
 			System.out.println("=========================================================================================================");
+			ConjuntoClientes.imprimeNomes();
+			System.out.println("=========================================================================================================");
+			
+			//Pesquisa pelo nome do cliente
 			System.out.print(">>>Qual o nome do cliente? ");
 			nome = LerDados.lerString();
 			System.out.println();
@@ -195,6 +247,7 @@ public class Principal {
 			System.out.print(">>>Quantos produtos serão cadastrados? ");
 			quantidade = LerDados.lerInt(quantidade);
 			//Se o número digitado for 0, partimos do pressuposto que o usuário quer voltar ao menu
+			//Se for menor que 0, mostra a mensagem da linha 254
 			if (quantidade == 0) {
 				break;
 			} else if (quantidade < 0){
@@ -229,6 +282,7 @@ public class Principal {
 			//Adicionando o objeto criado na classe ConjuntoProdutos
 			ConjuntoProdutos.adicionar(objProduto);
 		}
+		//Mostra que os dados foram cadastrados e a quantidade de produtos no sistema
 		System.out.println("DADOS CADASTRADOS [" + ConjuntoProdutos.quantidadeDeProdutos() + " produtos no sistema]");
 		System.out.println("---------------------------------------------------------------------------------------------------\n");
 	}
@@ -241,11 +295,15 @@ public class Principal {
 		char opcao = 0;
 		boolean temProdutos = false;
 
-		//Verifica se há produto cadastrado no sistema, se não houver, será exibida a mensagem das linhas 298-300
+		//Verifica se há produto cadastrado no sistema, se não houver, será exibida a mensagem das linhas 356-358
 		temProdutos = ConjuntoProdutos.temProduto();
 		if (temProdutos) {
-			//Pesquisa pelo nome do produto
+			//Lista os nomes dos produtos
 			System.out.println("=========================================================================================================");
+			ConjuntoProdutos.imprimeNomes();
+			System.out.println("=========================================================================================================");
+			
+			//Pesquisa pelo nome do produto
 			System.out.print(">>>Qual o nome do produto? ");
 			nome = LerDados.lerString();
 			System.out.println();
@@ -315,7 +373,7 @@ public class Principal {
 		temProdutos = ConjuntoProdutos.temProduto();
 		
 		//Esse método (cadastroDeVenda()) só será executado se houver cliente E produto cadastrado no sistema
-		//Caso contrário, mostra a mensagem das linhas 398-400
+		//Caso contrário, mostra a mensagem das linhas 458-460
 		if (temClientes && temProdutos) {
 			//Lista os nomes dos clientes
 			System.out.println("===================================================================================================");
@@ -331,7 +389,7 @@ public class Principal {
 			objCliente = ConjuntoClientes.pesquisarCliente(nomeCliente);
 			
 			//Se o nome digitado bater com algum nome já no sistema, significa que o objCliente é diferente de null e podemos prosseguir
-			//Caso contrário o programa retorna a mensagem das linhas 392-395
+			//Caso contrário o programa retorna a mensagem das linhas 452-455
 			if (objCliente != null) {
 				//Lista os nomes dos produtos
 				System.out.println("===================================================================================================");
@@ -347,7 +405,7 @@ public class Principal {
 				objProduto = ConjuntoProdutos.pesquisarProduto(nomeProduto);
 				
 				//Se o nome digitado bater com algum nome já no sistema, significa que o objProduto é diferente de null e podemos prosseguir
-				//Caso contrário, o programa retorna a mesagem das linhas 386-389
+				//Caso contrário, o programa retorna a mesagem das linhas 446-449
 				if (objProduto != null) {
 					do {				
 						//Pede para o usuário digitar a quantidade do produto se ele for encontrado
@@ -409,5 +467,20 @@ public class Principal {
 		System.out.println("===================================================================================================");
 		ConjuntoProdutos.impressaoNomesEstoque();
 		System.out.println();
+	}
+	
+	public static char sair() {
+		//Declarações
+		char escolha = 'n';
+		
+		//Pergunta se o usuário deseja sair do programa
+		System.out.print(">>>Deseja realmente sair do programa? [S/N]: ");
+		escolha = LerDados.lerChar(escolha);
+		if (escolha == 's' || escolha == 'S') {
+			System.out.println("\nVocê optou por encerrar o programa...");
+			System.exit(0);
+		} 
+		System.out.println();
+		return escolha;
 	}
 }
