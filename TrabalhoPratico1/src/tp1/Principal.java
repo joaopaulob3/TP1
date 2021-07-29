@@ -360,7 +360,7 @@ public class Principal {
 						if (quantidade == 0) {
 							break;
 						} else {
-							if (quantidade <= 0) {
+							if (quantidade < 0) {
 								System.out.println("=========================================================================================================");
 								System.out.println("Digite um valor maior que 0!");
 								System.out.println("=========================================================================================================");
